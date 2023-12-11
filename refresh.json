@@ -1,0 +1,10 @@
+{
+    "OracleSkipRecovery": true,
+    "EnableEmail": false,
+    "ScriptTimeout": 60,
+    "SkipNIDCreation": false,
+    "SkipTempTablespaceTempFileCreation": true,
+    "SecondaryUpdateWaitTimeout": 15,
+    "PolicyName":"orabackup2",
+    "WaitToTriggerClone": 1
+  }

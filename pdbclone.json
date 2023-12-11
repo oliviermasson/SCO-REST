@@ -1,0 +1,12 @@
+{
+    "OracleSkipRecovery": false,
+    "OracleUntilCancel": true,
+    "ScriptTimeout": 60,
+    "EnableEmail": false,
+    "SkipNIDCreation": true,
+    "SkipTempTablespaceTempFileCreation": false,
+    "PDBName": "OM3PDB",
+    "PDBCloneName": "clone3",
+    "CDBTargetSID": "OM4",
+    "OpenPluggableDatabaseAfterClone": true
+  }
