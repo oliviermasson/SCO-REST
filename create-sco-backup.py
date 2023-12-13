@@ -145,9 +145,9 @@ if restBackups.result == 0:
         while int(jobPercentComplete) != 100:
             print("Job still in progress, Wait...")
             time.sleep(5)
-            loopGetJob=doREST.doREST(url,'get',api,debug=debug,restdebug=restdebug,scVersion=scVersion)
-            if loopGetJob.result == 0:
-                jobPercentComplete=loopGetJob.response['Results'][0]['PercentageComplete']
+            getJob=doREST.doREST(url,'get',api,debug=debug,restdebug=restdebug,scVersion=scVersion)
+            if getJob.result == 0:
+                jobPercentComplete=getJob.response['Results'][0]['PercentageComplete']
                 now = datetime.datetime.now()
                 delta = now - begin
                 #print("now time [{}] delta is [{}]".format(now,delta.total_seconds()))
@@ -163,9 +163,9 @@ if restBackups.result == 0:
             print("TIMEOUT (20 minutes): Check Job creation on Snapcenter GUI to see more detail on your job")
             sys.exit(1)
         print("Job Id [{}] is finished".format(JobId))
-        JobStatus=loopGetJob.response['Results'][0]['Status']
-        JobError=loopGetJob.response['Results'][0]['Error']
-        JobJobStatus=loopGetJob.response['Results'][0]['JobStatus']
+        JobStatus=getJob.response['Results'][0]['Status']
+        JobError=getJob.response['Results'][0]['Error']
+        JobJobStatus=getJob.response['Results'][0]['JobStatus']
         print("Status [{}]".format(JobStatus))
         print("Error : {}".format(JobError))
         print("JobStatus [{}]".format(JobJobStatus))
