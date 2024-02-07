@@ -65,11 +65,11 @@ try:
 except:
     resourcekey=None
 try:
-    resourcename=int(myoptions['OPTS']['resourcename'])
+    resourcename=myoptions['OPTS']['resourcename']
 except:
     resourcename=None
 try:
-    hostname=int(myoptions['OPTS']['hostname'])
+    hostname=myoptions['OPTS']['hostname']
 except:
     hostname=None
 if(resourcekey is None and resourcename is None):
@@ -100,7 +100,7 @@ scVersionResp=doREST.doREST(url,'get',api,debug=debug,restdebug=restdebug)
 if scVersionResp.result == 0:
     scVersion=scVersionResp.response['ProductVersion']
     if scVersion not in '4.9 P1|5.0':
-        print("ERROR : your SnapCenter server must be running version 4.8 or upper")
+        print("ERROR : your SnapCenter server must be running version 4.9P1 or upper")
         sys.exit(1)
 else:
     print("REST call failed")
@@ -132,10 +132,12 @@ if VerifyAfterBackup:
 if VerifyOnSecondary:
     restargs=restargs + '&verifyInSecondary=True'
 jsonargs={'name':SmPolicy}
+# Perform POST backup operation
 restBackups=doREST.doREST(url,'post',api,json=jsonargs,restargs=restargs,debug=debug,restdebug=restdebug,scVersion=scVersion)
 if restBackups.result == 0:
     JobId=restBackups.response.split("/")[-1]    
     api='/jobs/{}'.format(JobId)
+    # Wait end of returned jobid
     getJob=doREST.doREST(url,'get',api,debug=debug,restdebug=restdebug,scVersion=scVersion)
     if getJob.result == 0:
         jobPercentComplete=getJob.response['Results'][0]['PercentageComplete']
@@ -167,10 +169,23 @@ if restBackups.result == 0:
         JobError=getJob.response['Results'][0]['Error']
         JobJobStatus=getJob.response['Results'][0]['JobStatus']
         print("Status [{}]".format(JobStatus))
-        print("Error : {}".format(JobError))
+        print("Error [{}]".format(JobError))
         print("JobStatus [{}]".format(JobJobStatus))
         if JobError is not None:
             sys.exit(1)
+        
+        # Get backupname from jobid
+        api='/backups'
+        restargs='JobID={}'.format(JobId)
+        getBackup=doREST.doREST(url,'get',api,restargs=restargs,debug=debug,restdebug=restdebug,scVersion=scVersion)
+        if getBackup.result == 0:
+            for BackupDetails in getBackup.response['Backups']:
+                if BackupDetails['BackupType'].startswith('Oracle Database'):
+                    print("[{}]".format(BackupDetails['BackupType']))
+                    print("\tBackupName [{}]".format(BackupDetails['BackupName']))
+                    print("\tBackupId   [{}]".format(BackupDetails['BackupId']))
+                    print("\tBackupTime [{}]".format(BackupDetails['BackupTime']))
+                    
 else:
     print("REST call failed")
     print(restBackups.reason)

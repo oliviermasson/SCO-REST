@@ -20,7 +20,6 @@ import json
 import os
 
 validoptions={'url':'str',
-              'clonesid':'str',
               'clonetohost':'str',
               'jsonfilepath':'str',
               'pdbclone':'bool',
@@ -34,13 +33,11 @@ requiredoptions=['url','clonetohost']
 usage="create-sco-clone\n" + \
       "           --url\n" + \
       "          <fqdn:port> of Snapcenter server\n\n" + \
-      "          --clonesid\n" + \
-      "          Oracle SID name of the cloned DB (max 8 chars)\n\n" + \
       "          --clonetohost\n" + \
       "          FQDN name of the host on which to attach this clone\n\n" + \
       "          [--jsonfilepath]\n" + \
       "          optionally specifies json file which contains all refresh parameters\n" + \
-      "          clone specification file paramter is directly added through dotenv variable created with create-sco-clone-specfile.py\n" + \
+      "          clone specification file parameter is directly added through dotenv variable created with create-sco-clone-specfile.py\n" + \
       "          be default import local file : ./clone.json \n\n" + \
       "          [--foreground]\n" + \
       "          Force the script to wait the end of the created job before returning\n" + \
@@ -93,7 +90,7 @@ scVersionResp=doREST.doREST(url,'get',api,debug=debug,restdebug=restdebug)
 if scVersionResp.result == 0:
     scVersion=scVersionResp.response['ProductVersion']
     if scVersion not in '4.9 P1|5.0':
-        print("ERROR: your SnapCenter server must be running version 4.8 or upper")
+        print("ERROR: your SnapCenter server must be running version 4.9P1 or upper")
         sys.exit(1)
 else:
     print("REST call failed")

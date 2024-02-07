@@ -83,7 +83,7 @@ clonetohost=myoptions['OPTS']['clonetohost']
 try:
     jsonfilepath=myoptions['OPTS']['jsonfilepath']
 except:
-    jsonfilepath=os.path.dirname(os.path.realpath(__file__))+"\\refresh.json"
+    jsonfilepath=os.path.dirname(os.path.realpath(__file__))+"/refreshpdb.json"
 try:
     backupname=myoptions['OPTS']['backupname']
 except:
@@ -133,7 +133,7 @@ scVersionResp=doREST.doREST(url,'get',api,debug=debug,restdebug=restdebug)
 if scVersionResp.result == 0:
     scVersion=scVersionResp.response['ProductVersion']
     if scVersion not in '4.9 P1|5.0':
-        print("ERROR : your SnapCenter server must be running version 4.8 or upper")
+        print("ERROR : your SnapCenter server must be running version 4.9P1 or upper")
         sys.exit(1)
 else:
     print("REST call failed")
@@ -250,7 +250,7 @@ scVersionResp=doREST.doREST(url,'get',api,debug=debug,restdebug=restdebug)
 if scVersionResp.result == 0:
     scVersion=scVersionResp.response['ProductVersion']
     if scVersion not in '4.9 P1|5.0':
-        print("ERROR: your SnapCenter server must be running version 4.8 or upper")
+        print("ERROR: your SnapCenter server must be running version 4.9P1 or upper")
         sys.exit(1)
 else:
     print("REST call failed")

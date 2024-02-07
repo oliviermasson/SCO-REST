@@ -24,7 +24,9 @@ usage="get-clones\n" + \
       "          --resourceid\n" + \
       "          specifies the source resource name to query\n" + \
       "          use get-sco-resources.py to get resource id\n" + \
-      "          example: rac\iSCSI\n\n" + \
+      "          examples: \n" + \
+      "          rac\\\iSCSI\n" + \
+      "          racn3.netapp.com\\\OM3\n\n" + \
       "          [--debug]\n" + \
       "          optionally show debug output\n\n" + \
       "          [--restdebug]\n" + \
@@ -51,7 +53,7 @@ scVersionResp=doREST.doREST(url,'get',api,debug=debug,restdebug=restdebug)
 if scVersionResp.result == 0:
     scVersion=scVersionResp.response['ProductVersion']
     if scVersion not in '4.9 P1|5.0':
-        print("ERROR : your SnapCenter server must be running version 4.8 or upper")
+        print("ERROR : your SnapCenter server must be running version 4.9P1 or upper")
         sys.exit(1)
 else:
     print("REST call failed")
@@ -70,29 +72,37 @@ if resourceid is not None:
     getClones=doREST.doREST(url,'get',api,restargs=restargs,debug=debug,restdebug=restdebug,scVersion=scVersion)
 else:
     getClones=doREST.doREST(url,'get',api,debug=debug,restdebug=restdebug,scVersion=scVersion)
-print("Total number of clone present [{}] for resource [{}]".format(len(getClones.response['Clones']),resourceid))
+print("Total number of clone present for resource [{}] = [{}]".format(resourceid,len(getClones.response['Clones'])))
 if getClones.result == 0:
     for clone in getClones.response['Clones']:
-        print("\tHostName                     : {}".format(clone['SmCloneHost']['HostName']))
-        print("\tClusterName                  : {}".format(clone['SmCloneHost']['ClusterName']))
+        print("\tClone attached to HostName   : {}".format(clone['SmCloneHost']['HostName']))
+        if clone['SmCloneHost']['ClusterHost'] is True:
+            print("\tClusterName                  : {}".format(clone['SmCloneHost']['ClusterName']))
+            print("\tCluster Members              : {}".format(clone['SmCloneHost']['Members']))
         print("\tCloneLevel                   : {}".format(clone['SmCloneHost']['CloneLevel']))
         print("\tCloneID                      : {}".format(clone['CloneID']))
         print("\tCloneName                    : {}".format(clone['CloneName']))
         print("\tBackupame                    : {}".format(clone['BackupName']))
         for smcloneobject in clone['CloneObjects']:
             print("\tSource DBsid                 : {}".format(smcloneobject['SourceObject']['dbSid']))
+            print("\tSource SC Id                 : {}".format(smcloneobject['SourceObject']['Id']))
             print("\tSource dvVersion             : {}".format(smcloneobject['SourceObject']['dbVersion']))
             print("\tSource Type                  : {}".format(smcloneobject['SourceObject']['Type']))
-            print("\tSource Status                : {}".format(smcloneobject['SourceObject']['DatabaseStatus']))
+            #print("\tSource Status                : {}".format(smcloneobject['SourceObject']['DatabaseStatus']))
             print("\tis in ArchiveLog Mode        : {}".format(smcloneobject['SourceObject']['IsInArchiveLogMode']))
             print("\tDest DBsid                   : {}".format(smcloneobject['CloneObject']['dbSid']))
-            print("\tDest Status                  : {}".format(smcloneobject['CloneObject']['DatabaseStatus']))
+            print("\tDest SC Id                   : {}".format(smcloneobject['CloneObject']['Id']))
+            #print("\tDest Status                  : {}".format(smcloneobject['CloneObject']['DatabaseStatus']))
+            print("\tPDBNames                     : {}".format(smcloneobject['SourceObject']['PDBNames']))
         for component in clone['CloneComponents']['CloneComponentMapping']:
             if len(component['SnapshotName']) > 0:
                 print("\tSnapshotName                 : {}".format(component['SnapshotName']))
                 for storage in component['sourcestorageFootPrint']['StorageSystemResources']:
                     print("\tResourceName                 : {}".format(storage['ResourceName']))
+                    print("\tVolumeName                   : {}".format(storage['Volume']['Name']))
                     print("\tAggregateName                : {}".format(storage['Volume']['AggregateName']))
+                for system in component['clonestorageFootPrint']['StorageSystemResources']:
+                    print("\tLogicalPath                  : {}".format(system['LogicalPath']))
         print("\n")
 else:
     print("REST call failed")

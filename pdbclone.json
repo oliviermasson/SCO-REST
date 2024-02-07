@@ -6,7 +6,7 @@
     "SkipNIDCreation": true,
     "SkipTempTablespaceTempFileCreation": false,
     "PDBName": "OM3PDB",
-    "PDBCloneName": "clone3",
-    "CDBTargetSID": "OM4",
+    "PDBCloneName": "PDBcl1",
+    "CDBTargetSID": "OM3cl1",
     "OpenPluggableDatabaseAfterClone": true
   }

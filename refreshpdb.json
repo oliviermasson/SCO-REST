@@ -6,6 +6,6 @@
     "SkipNIDCreation": false,
     "SkipTempTablespaceTempFileCreation": true,
     "SecondaryUpdateWaitTimeout": 5,
-    "PolicyName":"orabackup1",
+    "PolicyName":"OrabackupOM2",
     "WaitToTriggerClone": 2
   }
