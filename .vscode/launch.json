@@ -12,7 +12,7 @@
             "console": "integratedTerminal",
             "justMyCode": true,
             //"args": ["--url","sc1.muccbc.hq.netapp.com:8146","--resourcekey","1233","--SmPolicy","orabackup1","--debug"]                                                      // create-sco-backup
-            "args": ["--url","sc1.muccbc.hq.netapp.com:8146","--resourcename","OM3","--hostname","racn3.muccbc.hq.netapp.com","--SmPolicy","OrabackupOM2","--debug"]            // create-sco-backup
+            //"args": ["--url","sc1.muccbc.hq.netapp.com:8146","--resourcename","OM3","--hostname","racn3.muccbc.hq.netapp.com","--SmPolicy","OrabackupOM2","--debug"]            // create-sco-backup
             //"args": ["--url","sc1.muccbc.hq.netapp.com:8146","--resourcename","PRI","--hostname","racn3.muccbc.hq.netapp.com","--debug"]                                      // get backup
             //"args": ["--url","sc1.muccbc.hq.netapp.com:8146","--hostname","racn4.muccbc.hq.netapp.com","--debug"]                                                             // get sco resource
             //"args": ["--url","sc1.muccbc.hq.netapp.com:8146","--resourcename","OM3","--hostname","racn3.muccbc.hq.netapp.com","--clonesid","SIDcl","--backupname","racn3_muccbc_hq_netapp_com_OM3_racn3_11-30-2023_16.35.21.2388_0","--debug"]     //create sco clone specfile
@@ -20,7 +20,8 @@
             //"args": ["--url","sc1.muccbc.hq.netapp.com:8146","--clonesid","PRIcl","--clonetohost","racn3.muccbc.hq.netapp.com","--foreground","--jsonfilepath","C:\\Users\\masson\\OneDrive - NetApp Inc\\GitHub\\SCO-REST\\pdbclone.json"]        //create clone
             //"args": ["--url","sc1.muccbc.hq.netapp.com:8146","--clonesid","iSCSIcl","--clonetohost","racn2.muccbc.hq.netapp.com","--foreground"]                                                     //refresh clone
             //"args": ["--url","sc1.muccbc.hq.netapp.com:8146","--resourceid","racn3.muccbc.hq.netapp.com\\OM3"]                                                                                       //get clone
-            //"args": ["--url","sc1.muccbc.hq.netapp.com:8146","--cloneid","18","--debug","--foreground"]                                                                                              // delete clone
+            //
+            "args": ["--url","sc1.muccbc.hq.netapp.com:8146","--resourcename","OM3","--hostname","racn3.muccbc.hq.netapp.com","--clonesid","PDBcl1","--clonetohost","racn4.muccbc.hq.netapp.com","--SmPolicy","OrabackupOM2","--backupname","racn3_muccbc_hq_netapp_com_OM3_racn3_02-27-2024_16.30.02.0333_0","--jsonfilepath","./pdbclone.json","--debug","--foreground"]                                                                                              // refresh clone
         }
     ]
 }

@@ -48,3 +48,11 @@ And export this token as an environment variable named ``SCO_TOKEN``
 Before creating a clone, you must create a clone specification file (stored on the snapcenter server).  
 This clone specification file must then be used by the ``create-clone.py``  
 To simplify the automation of this, the path on the snapcenter server to this clone specification file is passed from ``create-sco-clone-specfile.py`` to ``create-clone.py`` through a **.env variable** as ``SCO_CLONE_SPECFILE`` variable
+
+``refresh-sco-clone.py`` is able to refresh a PDB or CDB existing clone.  
+If the clone already exist, il will delete it.  
+And based on the backupname parameter a new clone will be created:
+* ``backupname`` = ```<existing backup name>``` : then a new clone will be create from this existing backupname
+* ``backupname`` = ```Latest``` : then the latest available backup will be used to create a new clone
+* ``backupname`` = ```ondemand``` : then a new on demand backup is executed and the resulting backupname is used to create the new clone
+

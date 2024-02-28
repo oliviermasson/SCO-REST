@@ -44,7 +44,7 @@ usage="create-sco-clone-specfile\n" + \
       "          default is \"oracle_clonespec_dbName_cloneSID_timeStamp.xml\"\n\n" + \
       "          [--backupname]\n" + \
       "          optionally specifies the backupname to use for the clone creation\n" + \
-      "          default is to chose the lastest backup available for this resource\n\n" + \
+      "          default is to chose the latest backup available for this resource\n\n" + \
       "          [--secondarytype]\n" + \
       "          optionally specifies the secondary type VAULT or MIRROR to clone\n" + \
       "          default is VAULT\n\n" + \
