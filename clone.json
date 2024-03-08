@@ -3,6 +3,5 @@
     "OracleUntilCancel": true,
     "ScriptTimeout": 60,
     "EnableEmail": false,
-    "SkipNIDCreation": false,
-    "OpenPluggableDatabaseAfterClone": true
+    "SkipNIDCreation": false
   }
