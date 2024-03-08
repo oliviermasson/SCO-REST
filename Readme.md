@@ -165,7 +165,7 @@ Total number of clone present for resource [racnode3.demo.com\OM3] = [1]
         ResourceName                 : svm-snapcenter:/om_data01
         VolumeName                   : om_data01
         AggregateName                : aggr1_grenada_04
-        LogicalPath                  : 192.168.10.25:/Sc3c8dfa83-403b-466c-9a34-afd999630100
+        LogicalPath                  : 192.168.1.10:/Sc3c8dfa83-403b-466c-9a34-afd999630100
 
 ```
 
