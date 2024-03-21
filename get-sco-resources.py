@@ -79,7 +79,7 @@ else:
     sys.exit(1)
 
 api='/hosts/{}/plugins/SCO/resources'.format(hostname)
-restargs='ResourceType=Database'
+restargs='ResourceType=Database&UseKnwonResources=False'
 rest=doREST.doREST(url,'get',api,restargs=restargs,debug=debug,restdebug=restdebug,scVersion=scVersion)
 if rest.result == 0:
     for resource in rest.response['Resources']: 
